@@ -1,0 +1,3 @@
+#cloud-config
+runcmd:
+   - /home/opc/wp_install.sh >>/home/opc/wp_install.log
