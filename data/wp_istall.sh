@@ -32,8 +32,10 @@ DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
 FLUSH PRIVILEGES;
 EOF
 
-wppwd=`< /dev/urandom tr -cd "[:print:]" | head -c 16; echo`
-echo $wppwd > ~/.wppwd
+#TO DO: prepare acceptable random password for wordpress user in MySQL
+#wppwd=`< /dev/urandom tr -cd "[:print:]" | head -c 16; echo`
+#echo $wppwd > ~/.wppwd
+echo $mysqlpwd > ~/.wppwd
 
 mysql -u root -p${mysqlpwd}  <<EOF
 CREATE USER 'wordpress'@'localhost' IDENTIFIED WITH mysql_native_password BY '${wppwd}';
@@ -41,11 +43,18 @@ CREATE DATABASE wpdb;
 GRANT ALL PRIVILEGES ON wpdb.* to 'wordpress'@'localhost';
 FLUSH PRIVILEGES;
 EOF
-
-curl -O https://wordpress.org/latest.tar.gz
+#
+# Download the latest Wordpress
+#
+TRY=3; until [ $TRY -eq 0 ] || curl https://wordpress.org/latest.tar.gz -o latest.tar.gz ; do echo $TRY; echo "downloaded?" ; TRY=$(expr $TRY - 1); sleep 15; done;
+#
+# Unpack the wordpress
+#
 sudo tar zxf latest.tar.gz -C /var/www/html/ --strip 1
 sudo mkdir /var/www/html/wp-content/uploads
 sudo chown apache. -R /opt/rh/httpd24/root/var/www/html
 sudo chcon -t httpd_sys_rw_content_t /opt/rh/httpd24/root/var/www/html -R
 sudo chown apache:apache /var/www/html/wp-content/uploads
 sudo systemctl restart  httpd24-httpd.service
+
+echo "Password for the worpress user is in the file ~/.wppwd"
