@@ -2,7 +2,7 @@
 //Wordpress VCN 
 
 resource "oci_core_vcn" "wp_vcn_1" {
-  cidr_block     = "10.11.4.0/22"
+  cidr_block     = var.cidr_vcn
   dns_label      = "wpvcn1"
   compartment_id = var.compartment_ocid
   display_name   = "wp_vcn_1"
@@ -11,8 +11,35 @@ resource "oci_core_vcn" "wp_vcn_1" {
 // A regional subnet will not specify an Availability Domain
 //Public subnet
 resource "oci_core_subnet" "wp_vcn_1_subnet_pub" {
-  cidr_block        = "10.11.4.0/27"
+variable "cidr_vcn" {
+  cidr_block        = var.cidr_pub_subnet
   display_name      = "wp_vcn_1_subnet_pub"
+  dns_label         = "wpvcn1"
+  compartment_id    = var.compartment_ocid
+  vcn_id            = oci_core_vcn.wp_vcn_1.id
+  //security_list_ids = [oci_core_vcn.wp_vcn_1.default_security_list_id]
+  //route_table_id    = oci_core_vcn.wp_vcn_1.default_route_table_id
+  //dhcp_options_id   = oci_core_vcn.wp_vcn_1.default_dhcp_options_id
+}
+
+//Private subnet
+resource "oci_core_subnet" "wp_vcn_1_subnet_priv" {
+variable "cidr_vcn" {
+  cidr_block        = var.cidr_priv_subnet
+  display_name      = "wp_vcn_1_subnet_priv"
+  dns_label         = "wpvcn1"
+  compartment_id    = var.compartment_ocid
+  vcn_id            = oci_core_vcn.wp_vcn_1.id
+  //security_list_ids = [oci_core_vcn.wp_vcn_1.default_security_list_id]
+  //route_table_id    = oci_core_vcn.wp_vcn_1.default_route_table_id
+  //dhcp_options_id   = oci_core_vcn.wp_vcn_1.default_dhcp_options_id
+}
+
+//Load balancer subnet
+resource "oci_core_subnet" "wp_vcn_1_subnet_lb" {
+variable "cidr_vcn" {
+  cidr_block        = var.cidr_lb_subnet
+  display_name      = "wp_vcn_1_subnet_lb"
   dns_label         = "wpvcn1"
   compartment_id    = var.compartment_ocid
   vcn_id            = oci_core_vcn.wp_vcn_1.id
@@ -102,41 +129,3 @@ resource "oci_core_default_security_list" "default_security_list" {
       code = 4
     }
   }
-  // allow internal network traffic
-  ingress_security_rules {
-    protocol  = 6         // tcp
-    source    = "10.11.4.0/22"
-    stateless = false
-  }
-   // allow internal network traffic
-  ingress_security_rules {
-    protocol  = 6         // tcp
-    source    = "10.11.0.0/22"
-    stateless = false
-  }
-    // allow all inbound icmp traffic for internal network
-  ingress_security_rules {
-    protocol  = 1         //icmp
-    source    = "10.11.4.0/22"
-    stateless = false
-  }
-      // NFS traffic for internal network
-  ingress_security_rules {
-    protocol    = 17        // udp
-    source    = "10.11.4.0/22"
-    stateless = false
-    udp_options {
-      min = 2048
-      max = 2048
-    }
-  }
-    ingress_security_rules {
-    protocol    = 17        // udp
-    source    = "10.11.4.0/22"
-    stateless = false
-    udp_options {
-      min = 111
-      max = 111
-    }
-  }
-}
