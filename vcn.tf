@@ -11,7 +11,6 @@ resource "oci_core_vcn" "wp_vcn_1" {
 // A regional subnet will not specify an Availability Domain
 //Public subnet
 resource "oci_core_subnet" "wp_vcn_1_subnet_pub" {
-variable "cidr_vcn" {
   cidr_block        = var.cidr_pub_subnet
   display_name      = "wp_vcn_1_subnet_pub"
   dns_label         = "wpvcn1"
@@ -21,11 +20,9 @@ variable "cidr_vcn" {
   //route_table_id    = oci_core_vcn.wp_vcn_1.default_route_table_id
   //dhcp_options_id   = oci_core_vcn.wp_vcn_1.default_dhcp_options_id
 }
-}
 
 //Private subnet
 resource "oci_core_subnet" "wp_vcn_1_subnet_priv" {
-variable "cidr_vcn" {
   cidr_block        = var.cidr_priv_subnet
   display_name      = "wp_vcn_1_subnet_priv"
   dns_label         = "wpvcn1"
@@ -35,11 +32,9 @@ variable "cidr_vcn" {
   //route_table_id    = oci_core_vcn.wp_vcn_1.default_route_table_id
   //dhcp_options_id   = oci_core_vcn.wp_vcn_1.default_dhcp_options_id
 }
-}
 
 //Load balancer subnet
 resource "oci_core_subnet" "wp_vcn_1_subnet_lb" {
-variable "cidr_vcn" {
   cidr_block        = var.cidr_lb_subnet
   display_name      = "wp_vcn_1_subnet_lb"
   dns_label         = "wpvcn1"
@@ -48,7 +43,6 @@ variable "cidr_vcn" {
   //security_list_ids = [oci_core_vcn.wp_vcn_1.default_security_list_id]
   //route_table_id    = oci_core_vcn.wp_vcn_1.default_route_table_id
   //dhcp_options_id   = oci_core_vcn.wp_vcn_1.default_dhcp_options_id
-}
 }
 
 //Internet gateway
