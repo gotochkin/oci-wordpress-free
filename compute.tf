@@ -36,7 +36,7 @@ provisioner "remote-exec" {
   connection {
       agent       = false
       timeout     = "10m"
-      host        = oci_core_instance.database_instance.public_ip
+      host        = oci_core_instance.wp_instance.public_ip
       user        = "opc"
       private_key = var.ssh_private_key
     }
