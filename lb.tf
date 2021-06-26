@@ -27,7 +27,7 @@ resource "oci_load_balancer_backend" "wp_lb_bk_01" {
   #Required
   backendset_name  = oci_load_balancer_backend_set.wp_lb_bk_set_01.name
   ip_address       = oci_core_instance.wp_instance.private_ip
-  load_balancer_id = oci_load_balancer_load_balancer.wc_lb_01.id
+  load_balancer_id = oci_load_balancer_load_balancer.wp_lb_01.id
   port             = "80"
 }
 
