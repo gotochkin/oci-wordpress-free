@@ -25,7 +25,7 @@ resource "oci_core_instance" "wp_instance" {
     connection {
       agent       = false
       timeout     = "10m"
-      host        = oci_core_instance.database_instance.public_ip
+      host        = oci_core_instance.wp_instance.public_ip
       user        = "opc"
       private_key = var.ssh_private_key
     }
@@ -41,12 +41,12 @@ provisioner "remote-exec" {
       private_key = var.ssh_private_key
     }
     inline = [
-      "chmod +x /home/opc/prepare_source.sh"
+      "chmod +x /home/opc/wp_install.sh"
     ]
   }
   metadata = {
     ssh_authorized_keys = var.ssh_public_key
-    user_data = base64encode(file("./data/dbhost.cloud-config.yml"))
+    user_data = base64encode(file("./data/wordpress.cloud-config.yml"))
   }
 
   timeouts {
