@@ -16,13 +16,13 @@ resource "oci_core_instance" "wp_instance" {
     assign_public_ip = false
     hostname_label   = "wordpress-a1"
   }
-  create_vnic_details {
+  /* create_vnic_details {
     subnet_id        = oci_core_subnet.wp_vcn_1_subnet_pub.id
     display_name     = "Secondaryvnic"
     assign_public_ip = true
     hostname_label   = "wordpress-a1"
   }
-
+*/
   source_details {
     source_type = "image"
     source_id   = var.image_id[var.region]
