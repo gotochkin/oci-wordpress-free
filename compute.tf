@@ -63,6 +63,7 @@ resource "oci_core_vnic_attachment" "secondaryvnic" {
     #Required
     create_vnic_details {
     subnet_id        = oci_core_subnet.wp_vcn_1_subnet_pub.id
+    instance_id      = oci_core_instance.wp_instance.id
     display_name     = "Secondaryvnic"
     assign_public_ip = true
     hostname_label   = "wordpress-a1"
