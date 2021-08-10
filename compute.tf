@@ -17,7 +17,7 @@ resource "oci_core_instance" "wp_instance" {
     hostname_label   = "wordpress-a1"
   }
   create_vnic_details {
-    subnet_id        = oci_core_subnet.wp_vcn_1_subnet_pup.id
+    subnet_id        = oci_core_subnet.wp_vcn_1_subnet_pub.id
     display_name     = "Secondaryvnic"
     assign_public_ip = true
     hostname_label   = "wordpress-a1"
