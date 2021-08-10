@@ -31,7 +31,7 @@ resource "oci_core_instance" "wp_instance" {
     connection {
       agent       = false
       timeout     = "10m"
-      host        = oci_core_instance.wp_instance.public_ip
+      host        = oci_core_vnic_attachment.secondaryvnic.public_ip
       user        = "opc"
       private_key = var.ssh_private_key
     }
@@ -57,5 +57,14 @@ provisioner "remote-exec" {
 
   timeouts {
     create = "60m"
+  }
+}
+resource "oci_core_vnic_attachment" "secondaryvnic" {
+    #Required
+    create_vnic_details {
+    subnet_id        = oci_core_subnet.wp_vcn_1_subnet_pub.id
+    display_name     = "Secondaryvnic"
+    assign_public_ip = true
+    hostname_label   = "wordpress-a1"
   }
 }
