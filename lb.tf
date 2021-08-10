@@ -5,7 +5,7 @@ resource "oci_load_balancer_load_balancer" "wp_lb_01" {
   compartment_id = var.compartment_ocid
   display_name   = "wp_lb_01"
   shape          = var.load_balancer_shape
-  subnet_ids     = oci_core_subnet.wp_vcn_1_subnet_lb.id
+  subnet_ids     = [oci_core_subnet.wp_vcn_1_subnet_lb.id]
 }
 
 resource "oci_load_balancer_backend_set" "wp_lb_bk_set_01" {
