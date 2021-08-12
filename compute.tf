@@ -52,13 +52,4 @@ provisioner "remote-exec" {
     create = "60m"
   }
 }
-resource "oci_core_vnic_attachment" "secondaryvnic" {
-    #Required
-    create_vnic_details {
-    subnet_id        = oci_core_subnet.wp_vcn_1_subnet_priv.id
-    display_name     = "Secondaryvnic"
-    assign_public_ip = false
-    hostname_label   = "wordpress-a1-priv"
-  }
-  instance_id = oci_core_instance.wp_instance.id
-}
+
