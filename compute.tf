@@ -24,7 +24,7 @@ resource "oci_core_instance" "wp_instance" {
     connection {
       agent       = false
       timeout     = "10m"
-      host        = oci_core_vnic_attachment.secondaryvnic.public_ip
+      host        = oci_core_instance.wp_instance.public_ip
       user        = "opc"
       private_key = var.ssh_private_key
     }
