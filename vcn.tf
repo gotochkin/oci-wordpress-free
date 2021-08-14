@@ -13,7 +13,7 @@ resource "oci_core_vcn" "wp_vcn_1" {
 resource "oci_core_subnet" "wp_vcn_1_subnet_pub" {
   cidr_block        = var.cidr_pub_subnet
   display_name      = "wp_vcn_1_subnet_pub"
-  dns_label         = "wpvcn1"
+  dns_label         = "wpvcn1pub"
   compartment_id    = var.compartment_ocid
   vcn_id            = oci_core_vcn.wp_vcn_1.id
   //security_list_ids = [oci_core_vcn.wp_vcn_1.default_security_list_id]
@@ -25,7 +25,7 @@ resource "oci_core_subnet" "wp_vcn_1_subnet_pub" {
 resource "oci_core_subnet" "wp_vcn_1_subnet_priv" {
   cidr_block        = var.cidr_priv_subnet
   display_name      = "wp_vcn_1_subnet_priv"
-  dns_label         = "wpvcn1"
+  dns_label         = "wpvcn1priv"
   compartment_id    = var.compartment_ocid
   vcn_id            = oci_core_vcn.wp_vcn_1.id
   //security_list_ids = [oci_core_vcn.wp_vcn_1.default_security_list_id]

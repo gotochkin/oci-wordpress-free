@@ -11,12 +11,14 @@ resource "oci_core_instance" "wp_instance" {
 	}
 
   create_vnic_details {
-    subnet_id        = oci_core_subnet.wp_vcn_1_subnet_priv.id
+    subnet_id        = oci_core_subnet.wp_vcn_1_subnet_pub.id
     display_name     = "Primaryvnic"
-    assign_public_ip = false
+    assign_public_ip = true
     hostname_label   = "wordpress-a1"
+    nsg_ids = [
+      module.network_security.wp_network_security_group_id
+    ]
   }
-
   source_details {
     source_type = "image"
     source_id   = var.image_id[var.region]
@@ -53,3 +55,4 @@ provisioner "remote-exec" {
     create = "60m"
   }
 }
+
