@@ -30,7 +30,7 @@ resource "oci_core_network_security_group_security_rule" "wp_nsg_rule_01" {
 }
 
 # HTTPS Security Group Rules
-resource "oci_core_network_security_group_security_rule" "wp_nsg_rule_01" {
+resource "oci_core_network_security_group_security_rule" "wp_nsg_rule_02" {
     #Required
     network_security_group_id = oci_core_network_security_group.tnsnet_network_security_group.id
     direction = "INGRESS"
