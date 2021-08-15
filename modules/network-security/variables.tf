@@ -16,6 +16,6 @@ variable "security_list_id" {
   type        = string
 }
 
-variable "cidr_lb_subnet" {
+variable "cidr_ingress_subnet" {
   type = string
 }

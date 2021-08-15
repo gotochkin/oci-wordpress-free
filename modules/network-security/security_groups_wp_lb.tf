@@ -1,8 +1,8 @@
 #    Created by Gleb Otochkin 2021-08-13  #
 
-#Wordpress web  Network Security Group
+#Wordpress web  Network Security Group for load balancer access
 
-resource "oci_core_network_security_group" "wp_network_security_group" {
+resource "oci_core_network_security_group" "wp_lb_network_security_group" {
     #Required
     compartment_id = var.compartment_ocid
     vcn_id = var.vcn_id
@@ -10,14 +10,14 @@ resource "oci_core_network_security_group" "wp_network_security_group" {
 }
 
 # HTTP Security Group Rules
-resource "oci_core_network_security_group_security_rule" "wp_nsg_rule_01" {
+resource "oci_core_network_security_group_security_rule" "wp_lb_nsg_rule_01" {
     #Required
-    network_security_group_id = oci_core_network_security_group.wp_network_security_group.id
+    network_security_group_id = oci_core_network_security_group.wp_lb_network_security_group.id
     direction = "INGRESS"
     protocol = 6
     #Optional
     description = "HTTP access"
-    source = var.cidr_lb_subnet
+    source = var.cidr_ingress_subnet
     source_type = "CIDR_BLOCK"
     tcp_options {
         #Optional
@@ -30,14 +30,14 @@ resource "oci_core_network_security_group_security_rule" "wp_nsg_rule_01" {
 }
 
 # HTTPS Security Group Rules
-resource "oci_core_network_security_group_security_rule" "wp_nsg_rule_02" {
+resource "oci_core_network_security_group_security_rule" "wp_lb_nsg_rule_02" {
     #Required
-    network_security_group_id = oci_core_network_security_group.wp_network_security_group.id
+    network_security_group_id = oci_core_network_security_group.wp_lb_network_security_group.id
     direction = "INGRESS"
     protocol = 6
     #Optional
     description = "HTTPS access"
-    source = var.cidr_lb_subnet
+    source = var.cidr_ingress_subnet
     source_type = "CIDR_BLOCK"
     tcp_options {
         #Optional
