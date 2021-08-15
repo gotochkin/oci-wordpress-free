@@ -19,5 +19,5 @@ module "network_security" {
   vcn_id = oci_core_vcn.wp_vcn_1.id
   compartment_ocid = var.compartment_ocid
   security_list_id = oci_core_vcn.wp_vcn_1.default_security_list_id
-  cidr_lb_subnet = var.cidr_lb_subnet
+  cidr_ingress_subnet = var.cidr_lb_subnet
 }
