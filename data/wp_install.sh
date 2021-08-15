@@ -23,8 +23,7 @@ sudo systemctl restart firewalld
 
 echo "<?php phpinfo(); ?>" | sudo tee -a /var/www/html/info.php
 
-#!/bin/bash
-mysql -u root -p${mysqlpwd} --connect-expired-password <<EOF
+mysql -u root -p${mysqlpwd} --connect-expired-password<<EOF>>/home/opc/mysql_install.log
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${mysqlpwd}';
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 DELETE FROM mysql.user WHERE User='';
@@ -37,12 +36,13 @@ EOF
 #echo $wppwd > ~/.wppwd
 echo $mysqlpwd > ~/.wppwd
 
-mysql -u root -p${mysqlpwd}  <<EOF
+mysql -u root -p${mysqlpwd}<<EOF>>/home/opc/mysql_install.log
 CREATE USER 'wordpress'@'localhost' IDENTIFIED WITH mysql_native_password BY '${wppwd}';
 CREATE DATABASE wpdb;
 GRANT ALL PRIVILEGES ON wpdb.* to 'wordpress'@'localhost';
 FLUSH PRIVILEGES;
 EOF
+
 #
 # Download the latest Wordpress
 #
