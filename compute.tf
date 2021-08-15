@@ -16,7 +16,7 @@ resource "oci_core_instance" "wp_instance" {
     assign_public_ip = true
     hostname_label   = "wordpress-a1"
     nsg_ids = [
-      module.network_security.wp_network_security_group_id
+      module.network_security.wp_lb_network_security_group_id
     ]
   }
   source_details {

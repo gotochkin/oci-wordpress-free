@@ -2,7 +2,7 @@
 
 #Network Security Group for Web access (can be used for a Load balancer)
 #  Web access security group
-resource "oci_core_network_security_group" "web_access_security_group" {
+resource "oci_core_network_security_group" "web_access_network_security_group" {
     #Required
     compartment_id = var.compartment_ocid
     vcn_id = var.vcn_id
