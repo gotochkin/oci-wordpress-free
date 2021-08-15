@@ -7,6 +7,8 @@
 ########################################################################
 #
 # Install the necessary packages
+. ~/.bash_profile
+
 sudo yum install -y rh-php73-php
 sudo cp /opt/rh/rh-php73/enable /etc/profile.d/php7.3.sh
 sudo systemctl start  httpd24-httpd.service
