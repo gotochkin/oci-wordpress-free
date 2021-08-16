@@ -48,7 +48,8 @@ provisioner "remote-exec" {
   }
   metadata = {
     ssh_authorized_keys = var.ssh_public_key
-    user_data = base64encode(file("./data/wordpress.cloud-config.yml"))
+    #user_data = base64encode(file("./data/wordpress.cloud-config.yml"))
+    user_data = base64encode(file("./data/wp_install.sh"))
   }
 
   timeouts {
