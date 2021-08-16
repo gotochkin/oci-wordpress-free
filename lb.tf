@@ -19,8 +19,8 @@ resource "oci_load_balancer_backend_set" "wp_lb_bk_set_01" {
 
     #Optional
     port     = "80"
-    url_path = "/"
-    return_code = "302"
+    url_path = "/readme.html"
+    return_code = "200"
   }
   load_balancer_id = oci_load_balancer_load_balancer.wp_lb_01.id
   name             = "wp_lb_bk_set_01"

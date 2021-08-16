@@ -7,6 +7,9 @@
 ########################################################################
 #
 # Install the necessary packages
+
+sleep 15
+
 . ~/.bash_profile
 
 sudo yum install -y rh-php73-php >>/home/opc/wp_install.log 2>>/home/opc/wp_install.log 
@@ -23,7 +26,7 @@ sudo firewall-offline-cmd  --zone=public --add-port 80/tcp
 sudo firewall-offline-cmd  --zone=public --add-port 443/tcp
 sudo systemctl restart firewalld >>/home/opc/wp_install.log 2>>/home/opc/wp_install.log
 
-echo "<?php phpinfo(); ?>" | sudo tee -a /var/www/html/info.php
+#echo "<?php phpinfo(); ?>" | sudo tee -a /var/www/html/info.php #can be used to diagnose php problems.
 
 mysql -u root -p${mysqlpwd} --connect-expired-password<<EOF>>/home/opc/wp_install.log 2>>/home/opc/wp_install.log
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${mysqlpwd}';
