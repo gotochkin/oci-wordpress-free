@@ -39,7 +39,7 @@ EOF
 echo $mysqlpwd > ~/.wppwd
 
 mysql -u root -p${mysqlpwd}<<EOF>>/home/opc/wp_install.log 2>>/home/opc/wp_install.log
-CREATE USER 'wordpress'@'localhost' IDENTIFIED WITH mysql_native_password BY '${wppwd}';
+CREATE USER 'wordpress'@'localhost' IDENTIFIED WITH mysql_native_password BY '${mysqlpwd}';
 CREATE DATABASE wpdb;
 GRANT ALL PRIVILEGES ON wpdb.* to 'wordpress'@'localhost';
 FLUSH PRIVILEGES;
