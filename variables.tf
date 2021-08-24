@@ -31,7 +31,13 @@ variable "cidr_lb_subnet" {
 }
 variable "mysql_root_password" {}
 variable "load_balancer_shape" {
-  default = "10Mbps"
+  default = "flexible"
+}
+variable "maximum_bandwidth_in_mbps" {
+  default = "10"
+}
+variable "minimum_bandwidth_in_mbps" {
+  default = "10"
 }
 
 variable "image_id" {

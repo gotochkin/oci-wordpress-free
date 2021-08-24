@@ -9,6 +9,11 @@ resource "oci_load_balancer_load_balancer" "wp_lb_01" {
   network_security_group_ids = [
     module.network_security.web_access_network_security_group_id
     ]
+    shape_details {
+        #Required
+        maximum_bandwidth_in_mbps = var.maximum_bandwidth_in_mbps
+        minimum_bandwidth_in_mbps = var.minimum_bandwidth_in_mbps
+    }
 }
 
 resource "oci_load_balancer_backend_set" "wp_lb_bk_set_01" {
@@ -35,15 +40,15 @@ resource "oci_load_balancer_backend" "wp_lb_bk_01" {
   port             = "80"
 }
 
-resource "oci_load_balancer_listener" "wc_lb_lsnr_01" {
+resource "oci_load_balancer_listener" "wp_lb_lsnr_01" {
   #Required
   default_backend_set_name = oci_load_balancer_backend_set.wp_lb_bk_set_01.name
   load_balancer_id         = oci_load_balancer_load_balancer.wp_lb_01.id
-  name                     = "wc_lb_lsnr_01"
+  name                     = "wp_lb_lsnr_01"
   port                     = "80"
   protocol                 = "HTTP"
 }
 
-output wc_lb_01_load_balancer_IP {
+output wp_lb_01_load_balancer_IP {
   value = oci_load_balancer_load_balancer.wp_lb_01.ip_address_details[0]["ip_address"]
 }
